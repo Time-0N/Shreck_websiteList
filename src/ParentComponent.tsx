@@ -49,17 +49,13 @@ function ParentComponent(props: CharacterProps) {
         }
             const newData: character[] = [];
             for (let i = 0; i < props.characters.length; i++) {
-                const distance = levensteinDistance(input.toLowerCase().replace(/\s/g, ""), props.characters[i].name.toLowerCase().replace(/\s/g, ""))
+                const distance = //levensteinDistance(input.toLowerCase().replace(/\s/g, ""), props.characters[i].name.toLowerCase().replace(/\s/g, ""))
 
-                console.log(distance)
 
-                if (distance < 7) {
+                if (distance <= 4) {
                     console.log(newData);
                     const value = props.characters.find((d) => {
-                        if (i === 0) {
-                            i++
-                        }
-                        return d.id === i
+                        return d.id === i + 1
                     })
                     newData.push({id: value?.id || 0, name: value?.name || ""})
                 }

@@ -1,6 +1,13 @@
-import {useState} from "react";
+import React, {useState} from "react";
+import {Link} from "react-router-dom";
 
-type CharacterFormInputType = {
+
+type CharacterProps = {
+    callback: (newValue: CharacterFormInputType) => void;
+    lastId: number;
+}
+
+export type CharacterFormInputType = {
     id: number;
     name: string;
     status: string;
@@ -21,9 +28,9 @@ type CharacterFormInputType = {
     created: string;
 }
 
-function MyForm() {
+function MyForm(props: CharacterProps) {
     const [form, setForm] = useState<CharacterFormInputType>({
-        id: -1,
+        id: props.lastId + 1,
         name: "",
         status: "",
         species: "",
@@ -52,48 +59,57 @@ function MyForm() {
         setForm(newValues);
     }
 
-    return <form onSubmit={() => {
+    function handleSubmit(e: React.FormEvent)  {
+        e.preventDefault();
+        props.callback(form);
     }
-    }>
-        <input name={"id"} onChange={(e) => {
+
+    return (<div id={"CharacterInput"}>
+
+    <div>
+        <Link to={"/"} id={"MainPage"}>Back to Home</Link>
+    </div>
+        <form onSubmit={handleSubmit} >
+        <input disabled={true} value={form.id} name={"id"} placeholder={"id..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"name"} onChange={(e) => {
+        <input name={"name"} placeholder={"name..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"status"} onChange={(e) => {
+        <input name={"status"} placeholder={"status..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"species"} onChange={(e) => {
+        <input name={"species"} placeholder={"species..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"type"} onChange={(e) => {
+        <input name={"type"} placeholder={"type..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"gender"} onChange={(e) => {
+        <input name={"gender"} placeholder={"gender..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"origin"} onChange={(e) => {
+        <input name={"origin"} placeholder={"origin..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"location"} onChange={(e) => {
+        <input name={"location"} placeholder={"location..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"image"} onChange={(e) => {
+        <input name={"image"} placeholder={"image..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"episode"} onChange={(e) => {
+        <input name={"episode"} placeholder={"episode..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"url"} onChange={(e) => {
+        <input name={"url"} placeholder={"url..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
-        <input name={"created"} onChange={(e) => {
+        <input name={"created"} placeholder={"created..."} onChange={(e) => {
             onChangeValues(e.target.name, e.target.value);
         }}/>
 
         <button type={"submit"}>Submit Character</button>
     </form>
-}
+    </div>);
+};
 
 export default MyForm;

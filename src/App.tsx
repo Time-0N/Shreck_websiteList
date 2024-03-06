@@ -1,24 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import ParentComponent from "./ParentComponent";
+import MyForm, {CharacterFormInputType} from "./CharacterFormComponent";
+import {Link, Route, Routes} from "react-router-dom";
+import {response} from "./characters";
+import CharacterList from "./CharacterList";
+import MainPage from "./MainPage";
+
 
 function App() {
+    const [characters, setCharacters] = useState<CharacterFormInputType[]>([...response.results]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Routes>
+            <Route path={"/"} element={<MainPage/>}/>
+
+            <Route path={"/characters"} element={<ParentComponent characters={characters}/>}/>
+
+            <Route path={"/createCharacter"} element={<MyForm lastId={characters.length} callback={(newValue) => {
+                setCharacters([...characters, newValue])
+            }}/>}/>
+        </Routes>
     </div>
   );
 }

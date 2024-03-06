@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+#CharacterInput {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20vw;
+  padding-right: 20vw;
+}
+
+#Links {
+  display: flex;
+  flex-direction: column;
+}
